@@ -16,7 +16,7 @@ use yii\helpers\Url;
                     'items' => [
                         ['label' => 'Menu', 'options' => ['class' => 'header']],
                         ['label' => 'Beranda', 'icon' => 'fa fa-home', 'url' => ['/site']],
-                        ['label' => 'Kelas Reguler', 'icon' => 'fa fa-users', 'url' => ['/']],
+                        ['label' => 'Kelas Reguler', 'icon' => 'fa fa-users', 'url' => ['/ruangan']],
                         ['label' => 'Kelas Intensif', 'icon' => 'fa fa-user', 'url' => ['/']], 
                         ['label' => 'Akun user', 'icon' => 'fa fa-user', 'url' => ['/siswa']],
                         ['label' => 'Penjadwalan', 'icon' => 'fa fa-calendar', 'url' => ['/jadwal']],
