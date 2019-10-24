@@ -2,11 +2,10 @@
 
 namespace backend\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Siswa;
-
+use backend\models\User;
 /**
  * SiswaSearch represents the model behind the search form of `backend\models\Siswa`.
  */
@@ -18,8 +17,8 @@ class SiswaSearch extends Siswa
     public function rules()
     {
         return [
-            [['id', 'pendaftaran_id', 'jadwal_id'], 'integer'],
-            [['nama', 'alamat', 'nomor_hp', 'email_akun'], 'safe'],
+            [['id', 'pendaftaran_id', 'id_user'], 'integer'],
+            [['nama', 'alamat', 'nomor_hp'], 'safe'],
         ];
     }
 
@@ -41,8 +40,13 @@ class SiswaSearch extends Siswa
      */
     public function search($params)
     {
-        $query = Siswa::find();
+        // $user = User::find()->where(['role_id'=>3])->one();
 
+        // var_dump($user);
+        // die();
+        $query = Siswa::find();
+        // var_dump($query);
+        // die();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -61,13 +65,12 @@ class SiswaSearch extends Siswa
         $query->andFilterWhere([
             'id' => $this->id,
             'pendaftaran_id' => $this->pendaftaran_id,
-            'jadwal_id' => $this->jadwal_id,
+            'id_user' => $this->id_user,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'alamat', $this->alamat])
-            ->andFilterWhere(['like', 'nomor_hp', $this->nomor_hp])
-            ->andFilterWhere(['like', 'email_akun', $this->email_akun]);
+            ->andFilterWhere(['like', 'nomor_hp', $this->nomor_hp]);
 
         return $dataProvider;
     }

@@ -48,5 +48,6 @@ $this->title = 'Sanger Scheduler';
         </div>
 
     </div>
+    <br><br><br><br><br>
 </div>
 

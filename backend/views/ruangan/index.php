@@ -29,7 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'nama',
             'kapasitas',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            
+            [
+                'label' => 'Action',
+                'format' => 'raw',
+                'value' => function($model, $key, $index, $column) {
+                    return Html::a('Detail', ['view', 'id' => $model->id], ['class' => 'btn btn-primary']);
+                }
+            ],
         ],
     ]); ?>
 </div>

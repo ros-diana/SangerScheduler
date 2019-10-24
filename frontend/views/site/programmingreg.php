@@ -4,69 +4,69 @@ use yii\helpers\Html;
 $this->title = 'Basic Android Develompment';
 ?>
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 
-<script>
-                jQuery(function () {
-                jQuery(document).ready(function(){
+    <script>
+                    jQuery(function () {
+                    jQuery(document).ready(function(){
 
-});
-                });
-            </script><meta name="generator" content="Powered by Visual Composer - drag and drop page builder for WordPress.">
-<!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="http://sangerlearning.com/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]--><meta name="generator" content="Powered by Slider Revolution 5.3.1.5 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface.">
+    });
+                    });
+                </script><meta name="generator" content="Powered by Visual Composer - drag and drop page builder for WordPress.">
+    <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="http://sangerlearning.com/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]--><meta name="generator" content="Powered by Slider Revolution 5.3.1.5 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface.">
 
-<style type="text/css" title="dynamic-css" class="options-output">
-  
-  .blog-banner{
-    background-color:transparent;background-repeat:no-repeat;
-    background-size:cover;background-attachment:fixed;
-    background-position:center top;
-  }
-  .portfolio-banner{
-    background-repeat:no-repeat;background-size:cover;
-    background-attachment:fixed;background-position:center top;
-    background-image:url('http://alaska.themestudio.net/demo2/wp-content/themes/alaska/assets/images/bg-banner.jpg');
-  }
+    <style type="text/css" title="dynamic-css" class="options-output">
+      
+      .blog-banner{
+        background-color:transparent;background-repeat:no-repeat;
+        background-size:cover;background-attachment:fixed;
+        background-position:center top;
+      }
+      .portfolio-banner{
+        background-repeat:no-repeat;background-size:cover;
+        background-attachment:fixed;background-position:center top;
+        background-image:url('http://alaska.themestudio.net/demo2/wp-content/themes/alaska/assets/images/bg-banner.jpg');
+      }
 
-  table {
-    font-family: arial, sans-serif;
-     width: 100%;
-    border: none;
-  }
+      table {
+        font-family: arial, sans-serif;
+        width: 100%;
+        border: none;
+      }
 
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
 
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
-  
-  img.wp-smiley,
-img.emoji {
-  display: inline !important;
-  border: none !important;
-  box-shadow: none !important;
-  height: 1em !important;
-  width: 1em !important;
-  margin: 0 .07em !important;
-  vertical-align: -0.1em !important;
-  background: none !important;
-  padding: 0 !important;
-}
-  </style>
-  <noscript>
-  <style type="text/css"> 
-    .wpb_animate_when_almost_visible { opacity: 1; }
-  </style>
-  </noscript>
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      
+      img.wp-smiley,
+    img.emoji {
+      display: inline !important;
+      border: none !important;
+      box-shadow: none !important;
+      height: 1em !important;
+      width: 1em !important;
+      margin: 0 .07em !important;
+      vertical-align: -0.1em !important;
+      background: none !important;
+      padding: 0 !important;
+    }
+      </style>
+      <noscript>
+      <style type="text/css"> 
+        .wpb_animate_when_almost_visible { opacity: 1; }
+      </style>
+      </noscript>
 
 
-<style id="rs-plugin-settings-inline-css" type="text/css">
-#rs-demo-id {}
-</style>
+    <style id="rs-plugin-settings-inline-css" type="text/css">
+    #rs-demo-id {}
+    </style>
 
 <body>
 

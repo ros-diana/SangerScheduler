@@ -6,9 +6,10 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Pengajar */
 
-$this->title = $model->nama;
-$this->params['breadcrumbs'][] = ['label' => 'Daftar Pengajar', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Pengajars', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+\yii\web\YiiAsset::register($this);
 ?>
 <div class="pengajar-view">
 
@@ -32,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'nama',
             'alamat',
             'nomor_hp',
-            'email_akun:email',
+            'id_user',
         ],
     ]) ?>
 

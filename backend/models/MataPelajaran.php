@@ -3,15 +3,22 @@
 namespace backend\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "tb_mata_pelajaran".
  *
  * @property int $id
  * @property string $nama
+ * @property int $jumlah_siswa
+ * @property int $harga
+ * @property string $keterangan
+ * @property string $persyaratan
+ * @property string $durasi_kursus
+ * @property string $materi
  * @property int $jenis_id
  * @property int $pengajar_id
  *
+ * @property TbHari[] $tbHaris
  * @property TbJadwal[] $tbJadwals
  * @property TbJenisKelas $jenis
  * @property TbPengajar $pengajar
@@ -33,8 +40,9 @@ class MataPelajaran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'jenis_id', 'pengajar_id'], 'required'],
-            [['jenis_id', 'pengajar_id'], 'integer'],
+            [['nama', 'jumlah_siswa', 'keterangan', 'persyaratan', 'durasi_kursus', 'materi', 'jenis_id', 'pengajar_id','harga'], 'required'],
+            [['harga','jumlah_siswa', 'jenis_id', 'pengajar_id'], 'integer'],
+            [['keterangan', 'persyaratan', 'durasi_kursus', 'materi'], 'string'],
             [['nama'], 'string', 'max' => 255],
             [['jenis_id'], 'exist', 'skipOnError' => true, 'targetClass' => JenisKelas::className(), 'targetAttribute' => ['jenis_id' => 'id']],
             [['pengajar_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pengajar::className(), 'targetAttribute' => ['pengajar_id' => 'id']],
@@ -48,10 +56,24 @@ class MataPelajaran extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
-            'jenis_id' => 'Jenis ID',
-            'pengajar_id' => 'Pengajar ID',
+            'nama' => 'Mata Pelajaran',
+            'jumlah_siswa' => 'Jumlah Siswa',
+            'harga' => 'Harga',
+            'keterangan' => 'Deskripsi',
+            'persyaratan' => 'Persyaratan',
+            'durasi_kursus' => 'Durasi Kursus',
+            'materi' => 'Materi',
+            'jenis_id' => 'Jenis Kelas',
+            'pengajar_id' => 'Pengajar',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTbHaris()
+    {
+        return $this->hasMany(Hari::className(), ['id_mapel' => 'id']);
     }
 
     /**
@@ -81,8 +103,26 @@ class MataPelajaran extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPendaftarans()
+    public function getTbPendaftarans()
     {
         return $this->hasMany(Pendaftaran::className(), ['mapel_id' => 'id']);
+    }
+    
+      /**
+     * Get List of Mata Pelajaran
+     */
+    public static function getMapelList()
+    {
+        $droptions = MataPelajaran::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'nama');
+    }
+
+    /**
+     * Get Mata Pelajaran Id
+     */
+    public static function getMapelId($name)
+    {
+        $mapel = MataPelajaran::find()->where(['nama' => $name])->one();
+        return $mapel->id;
     }
 }

@@ -9,8 +9,10 @@ use Yii;
  *
  * @property int $id
  * @property string $nama
- * @property int $waktu_id
+ * @property int $id_waktu
+ * @property int $id_mapel
  *
+ * @property TbMataPelajaran $mapel
  * @property TbWaktu $waktu
  * @property TbJadwal[] $tbJadwals
  */
@@ -30,10 +32,11 @@ class Hari extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'waktu_id'], 'required'],
-            [['waktu_id'], 'integer'],
+            [['nama', 'id_waktu', 'id_mapel'], 'required'],
+            [['id_waktu', 'id_mapel'], 'integer'],
             [['nama'], 'string', 'max' => 255],
-            [['waktu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Waktu::className(), 'targetAttribute' => ['waktu_id' => 'id']],
+            [['id_mapel'], 'exist', 'skipOnError' => true, 'targetClass' => TbMataPelajaran::className(), 'targetAttribute' => ['id_mapel' => 'id']],
+            [['id_waktu'], 'exist', 'skipOnError' => true, 'targetClass' => TbWaktu::className(), 'targetAttribute' => ['id_waktu' => 'id']],
         ];
     }
 
@@ -45,8 +48,17 @@ class Hari extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nama' => 'Nama',
-            'waktu_id' => 'Waktu ID',
+            'id_waktu' => 'Id Waktu',
+            'id_mapel' => 'Id Mapel',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMapel()
+    {
+        return $this->hasOne(TbMataPelajaran::className(), ['id' => 'id_mapel']);
     }
 
     /**
@@ -54,14 +66,14 @@ class Hari extends \yii\db\ActiveRecord
      */
     public function getWaktu()
     {
-        return $this->hasOne(Waktu::className(), ['id' => 'waktu_id']);
+        return $this->hasOne(TbWaktu::className(), ['id' => 'id_waktu']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getJadwals()
+    public function getTbJadwals()
     {
-        return $this->hasMany(Jadwal::className(), ['hari_id' => 'id']);
+        return $this->hasMany(TbJadwal::className(), ['hari_id' => 'id']);
     }
 }

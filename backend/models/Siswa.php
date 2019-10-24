@@ -11,13 +11,11 @@ use Yii;
  * @property string $nama
  * @property string $alamat
  * @property string $nomor_hp
- * @property string $email_akun
  * @property int $pendaftaran_id
- * @property int $jadwal_id
+ * @property int $id_user
  *
- * @property TbAkun $emailAkun
- * @property TbJadwal $jadwal
  * @property TbPendaftaran $pendaftaran
+ * @property User $user
  */
 class Siswa extends \yii\db\ActiveRecord
 {
@@ -35,12 +33,11 @@ class Siswa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'alamat', 'nomor_hp', 'email_akun', 'pendaftaran_id', 'jadwal_id'], 'required'],
-            [['pendaftaran_id', 'jadwal_id'], 'integer'],
-            [['nama', 'alamat', 'nomor_hp', 'email_akun'], 'string', 'max' => 255],
-            [['email_akun'], 'exist', 'skipOnError' => true, 'targetClass' => Akun::className(), 'targetAttribute' => ['email_akun' => 'email']],
-            [['jadwal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Jadwal::className(), 'targetAttribute' => ['jadwal_id' => 'id']],
+            [['nama', 'alamat', 'nomor_hp', 'pendaftaran_id', 'id_user'], 'required'],
+            [['pendaftaran_id', 'id_user'], 'integer'],
+            [['nama', 'alamat', 'nomor_hp'], 'string', 'max' => 255],
             [['pendaftaran_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pendaftaran::className(), 'targetAttribute' => ['pendaftaran_id' => 'id']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
 
@@ -54,26 +51,9 @@ class Siswa extends \yii\db\ActiveRecord
             'nama' => 'Nama',
             'alamat' => 'Alamat',
             'nomor_hp' => 'Nomor Hp',
-            'email_akun' => 'Email Akun',
             'pendaftaran_id' => 'Pendaftaran ID',
-            'jadwal_id' => 'Jadwal ID',
+            'id_user' => 'Id User',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEmailAkun()
-    {
-        return $this->hasOne(Akun::className(), ['email' => 'email_akun']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getJadwal()
-    {
-        return $this->hasOne(Jadwal::className(), ['id' => 'jadwal_id']);
     }
 
     /**
@@ -82,5 +62,13 @@ class Siswa extends \yii\db\ActiveRecord
     public function getPendaftaran()
     {
         return $this->hasOne(Pendaftaran::className(), ['id' => 'pendaftaran_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id_user']);
     }
 }

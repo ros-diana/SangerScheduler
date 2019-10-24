@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'Sanger Scheduler',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -37,26 +37,9 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Beranda', 'url' => ['/site/index']],
-        // ['label' => 'About', 'url' => ['/site/about']],
-        // ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
-    $menuItems[] = ['label' => 'Regular Class', 'items' => [
-        ['label' => 'Web Design', 'url' => ['/site/webreg']],
-        ['label' => 'Mobile Programming', 'url' => ['/site/mobilereg']],
-        ['label' => 'Graphic Design', 'url' => ['/site/designreg']],
-        ['label' => 'Web Programming', 'url' => ['/site/programmingreg']],
-        ['label' => 'Java Basic', 'url' => ['/site/java']],
-        ['label' => 'C Programming', 'url' => ['/site/cprogramming']],
-        ['label' => 'WordPress', 'url' => ['/site/wordpress']],
-        ['label' => 'Ms Office', 'url' => ['/site/msoffice']],
-        ['label' => 'Bimbingan TA', 'url' => ['/site/bimbingan']]
-    ]];
-    $menuItems[] = ['label' => 'Intensive Class', 'items' => [
-        ['label' => 'Basic Android Development', 'url' => ['/site/mobilereg']],
-        ['label' => 'Basic Front End Web Development', 'url' => ['/site/webreg']],
-        ['label' => 'Graphic Design', 'url' => ['/site/design']],
-        ['label' => 'Web Programming', 'url' => ['/site/programming']]
-    ]];
+    $menuItems[] = ['label' => 'Kelas Reguler','url' => ['/mata-pelajaran']];
+    $menuItems[] = ['label' => 'Kelas Intensif', 'url' => ['/mata-pelajaran/intensif']];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

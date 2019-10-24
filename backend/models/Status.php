@@ -40,7 +40,7 @@ class Status extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
+            'nama' => 'Status',
         ];
     }
 
@@ -50,5 +50,14 @@ class Status extends \yii\db\ActiveRecord
     public function getPendaftarans()
     {
         return $this->hasMany(Pendaftaran::className(), ['status_id' => 'id']);
+    }
+
+      /**
+     * Get Status Id
+     */
+    public static function getStatusId($name)
+    {
+        $status = Status::find()->where(['nama' => $name])->one();
+        return $status->id;
     }
 }

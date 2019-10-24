@@ -32,7 +32,7 @@ class Pendaftaran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['waktu_pendaftaran', 'status_id', 'mapel_id'], 'required'],
+            [['status_id', 'mapel_id'], 'required'],
             [['waktu_pendaftaran'], 'safe'],
             [['status_id', 'mapel_id'], 'integer'],
             [['mapel_id'], 'exist', 'skipOnError' => true, 'targetClass' => MataPelajaran::className(), 'targetAttribute' => ['mapel_id' => 'id']],

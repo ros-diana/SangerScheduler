@@ -32,29 +32,6 @@ insert  into `migration`(`version`,`apply_time`) values
 ('m000000_000000_base',1532768690),
 ('m130524_201442_init',1532768704);
 
-/*Table structure for table `tb_akun` */
-
-DROP TABLE IF EXISTS `tb_akun`;
-
-CREATE TABLE `tb_akun` (
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  PRIMARY KEY (`email`),
-  UNIQUE KEY `idx_akun` (`email`),
-  KEY `email` (`email`),
-  KEY `fk_role` (`role_id`),
-  CONSTRAINT `fk_role` FOREIGN KEY (`role_id`) REFERENCES `tb_role` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `tb_akun` */
-
-insert  into `tb_akun`(`email`,`password`,`role_id`) values 
-('admin@gmail.com','admin123',1),
-('arif@gmail.com','arif',3),
-('sarah123@gmail.com','sarah123',1),
-('susi123@gmail.com','susi123',3);
-
 /*Table structure for table `tb_hari` */
 
 DROP TABLE IF EXISTS `tb_hari`;
@@ -168,17 +145,14 @@ CREATE TABLE `tb_pengajar` (
   `nama` varchar(255) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `nomor_hp` varchar(255) NOT NULL,
-  `email_akun` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id` (`id`),
-  KEY `fk_email` (`email_akun`),
-  CONSTRAINT `fk_email` FOREIGN KEY (`email_akun`) REFERENCES `tb_akun` (`email`) ON UPDATE CASCADE
+  KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_pengajar` */
 
-insert  into `tb_pengajar`(`id`,`nama`,`alamat`,`nomor_hp`,`email_akun`) values 
-(1,'Arif','Medan','087688472637','arif@gmail.com');
+insert  into `tb_pengajar`(`id`,`nama`,`alamat`,`nomor_hp`) values 
+(1,'Arif','Medan','087688472637');
 
 /*Table structure for table `tb_role` */
 
@@ -229,23 +203,20 @@ CREATE TABLE `tb_siswa` (
   `nama` varchar(255) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `nomor_hp` varchar(255) NOT NULL,
-  `email_akun` varchar(255) NOT NULL,
   `pendaftaran_id` int(11) NOT NULL,
   `jadwal_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
-  KEY `fk_email1` (`email_akun`),
   KEY `fk_pendaftaran` (`pendaftaran_id`),
   KEY `fk_jadwal` (`jadwal_id`),
-  CONSTRAINT `fk_email1` FOREIGN KEY (`email_akun`) REFERENCES `tb_akun` (`email`) ON UPDATE CASCADE,
   CONSTRAINT `fk_jadwal` FOREIGN KEY (`jadwal_id`) REFERENCES `tb_jadwal` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_pendaftaran` FOREIGN KEY (`pendaftaran_id`) REFERENCES `tb_pendaftaran` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_siswa` */
 
-insert  into `tb_siswa`(`id`,`nama`,`alamat`,`nomor_hp`,`email_akun`,`pendaftaran_id`,`jadwal_id`) values 
-(1,'Sarah Rosdiana','Balige','083734769324','sarah123@gmail.com',3,2);
+insert  into `tb_siswa`(`id`,`nama`,`alamat`,`nomor_hp`,`pendaftaran_id`,`jadwal_id`) values 
+(1,'Sarah Rosdiana','Balige','083734769324',3,2);
 
 /*Table structure for table `tb_status` */
 
@@ -296,18 +267,21 @@ CREATE TABLE `user` (
   `status` smallint(6) NOT NULL DEFAULT '10',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL DEFAULT '4',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `password_reset_token` (`password_reset_token`)
+  UNIQUE KEY `password_reset_token` (`password_reset_token`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `tb_role` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`username`,`auth_key`,`password_hash`,`password_reset_token`,`email`,`status`,`created_at`,`updated_at`) values 
-(1,'sarah','q_FClx3Jd4oznjrr8g1bz1b7iFChE3Zi','$2y$13$VvRQa4KUOJxrCQRMaU9ak.m6XuX2pMH8.Xg63FZbmtvD7lFrkIHrO',NULL,'sarah@gmail.com',10,1533352103,1533352103),
-(2,'test','rw7-tvtrZ2OhcOByA_73_3FbG-TOvfj8','$2y$13$2O4C2xiUELjvtC8WL1tXbO7Z0xHXf8Dl3qu77xLHorI0lP2Yh72dO',NULL,'test@gmail.com',10,1533885579,1533885579),
-(3,'coba','Xi0u7p4s3pAAP2wW6tzAEVpBdTlZ_50Z','$2y$13$wDTlD9L6ZB0EyI51TwDOwOiFj32B4vdJnRGLiVVeE84czZE1NKrkW',NULL,'coba@gmail.com',10,1533890187,1533890187);
+insert  into `user`(`id`,`username`,`auth_key`,`password_hash`,`password_reset_token`,`email`,`status`,`created_at`,`updated_at`,`role_id`) values 
+(1,'sarah','q_FClx3Jd4oznjrr8g1bz1b7iFChE3Zi','$2y$13$VvRQa4KUOJxrCQRMaU9ak.m6XuX2pMH8.Xg63FZbmtvD7lFrkIHrO',NULL,'sarah@gmail.com',10,1533352103,1533352103,1),
+(2,'test','rw7-tvtrZ2OhcOByA_73_3FbG-TOvfj8','$2y$13$2O4C2xiUELjvtC8WL1tXbO7Z0xHXf8Dl3qu77xLHorI0lP2Yh72dO',NULL,'test@gmail.com',10,1533885579,1533885579,4),
+(3,'coba','Xi0u7p4s3pAAP2wW6tzAEVpBdTlZ_50Z','$2y$13$wDTlD9L6ZB0EyI51TwDOwOiFj32B4vdJnRGLiVVeE84czZE1NKrkW',NULL,'coba@gmail.com',10,1533890187,1533890187,4);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

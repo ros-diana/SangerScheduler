@@ -2,7 +2,6 @@
 
 namespace backend\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Pengajar;
@@ -18,8 +17,8 @@ class PengajarSearch extends Pengajar
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['nama', 'alamat', 'nomor_hp', 'email_akun'], 'safe'],
+            [['id', 'id_user'], 'integer'],
+            [['nama', 'alamat', 'nomor_hp'], 'safe'],
         ];
     }
 
@@ -60,12 +59,12 @@ class PengajarSearch extends Pengajar
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'id_user' => $this->id_user,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'alamat', $this->alamat])
-            ->andFilterWhere(['like', 'nomor_hp', $this->nomor_hp])
-            ->andFilterWhere(['like', 'email_akun', $this->email_akun]);
+            ->andFilterWhere(['like', 'nomor_hp', $this->nomor_hp]);
 
         return $dataProvider;
     }

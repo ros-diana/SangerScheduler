@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Pengajar */
 
-$this->title = 'Update Data Pengajar: ' . $model->nama;
-$this->params['breadcrumbs'][] = ['label' => 'Daftar Pengajar', 'url' => ['index']];
+$this->title = 'Update Pengajar: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Pengajars', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

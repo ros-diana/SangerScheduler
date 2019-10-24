@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "tb_pengajar".
  *
@@ -11,10 +11,10 @@ use Yii;
  * @property string $nama
  * @property string $alamat
  * @property string $nomor_hp
- * @property string $email_akun
+ * @property int $id_user
  *
  * @property TbMataPelajaran[] $tbMataPelajarans
- * @property TbAkun $emailAkun
+ * @property User $user
  */
 class Pengajar extends \yii\db\ActiveRecord
 {
@@ -32,9 +32,10 @@ class Pengajar extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'alamat', 'nomor_hp', 'email_akun'], 'required'],
-            [['nama', 'alamat', 'nomor_hp', 'email_akun'], 'string', 'max' => 255],
-            [['email_akun'], 'exist', 'skipOnError' => true, 'targetClass' => Akun::className(), 'targetAttribute' => ['email_akun' => 'email']],
+            [['nama', 'alamat', 'nomor_hp', 'id_user'], 'required'],
+            [['id_user'], 'integer'],
+            [['nama', 'alamat', 'nomor_hp'], 'string', 'max' => 255],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
 
@@ -45,17 +46,17 @@ class Pengajar extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
+            'nama' => 'Nama Pengajar',
             'alamat' => 'Alamat',
             'nomor_hp' => 'Nomor Hp',
-            'email_akun' => 'Email Akun',
+            'id_user' => 'Id User',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMataPelajarans()
+    public function getTbMataPelajarans()
     {
         return $this->hasMany(MataPelajaran::className(), ['pengajar_id' => 'id']);
     }
@@ -63,8 +64,28 @@ class Pengajar extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEmailAkun()
+    public function getUser()
     {
-        return $this->hasOne(Akun::className(), ['email' => 'email_akun']);
+        return $this->hasOne(User::className(), ['id' => 'id_user']);
     }
+
+     /**
+     * Get List of Pengajar
+     */
+    public static function getPengajarList()
+    {
+        $droptions = Pengajar::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'nama');
+    }
+
+    /**
+     * Get Pengajar Id
+     */
+    public static function getPengajarId($name)
+    {
+        $pengajar = Pengajar::find()->where(['nama' => $name])->one();
+        return $pengajar->id;
+    }
+
+
 }

@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "tb_jenis_kelas".
  *
@@ -50,5 +50,23 @@ class JenisKelas extends \yii\db\ActiveRecord
     public function getMataPelajarans()
     {
         return $this->hasMany(MataPelajaran::className(), ['jenis_id' => 'id']);
+    }
+
+     /**
+     * Get List of Kelas
+     */
+    public static function getKelasList()
+    {
+        $droptions = JenisKelas::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'jenis');
+    }
+
+    /**
+     * Get Kelas Id
+     */
+    public static function getKelasId($name)
+    {
+        $kelas = JenisKelas::find()->where(['jenis' => $name])->one();
+        return $kelas->id;
     }
 }

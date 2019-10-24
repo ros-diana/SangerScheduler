@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nomor_hp')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'email_akun')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'id_user')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -8,6 +8,12 @@ use backend\models\SiswaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\User;
+use yii\helpers\Html;
+use backend\models\Pendaftaran;
+use backend\models\MataPelajaran;
+use backend\models\Status;
+
 
 /**
  * SiswaController implements the CRUD actions for Siswa model.
@@ -52,8 +58,20 @@ class SiswaController extends Controller
      */
     public function actionView($id)
     {
+        if (\Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+        $model = $this->findModel($id);
+        $user = User::find()->where(['id'=>$model->id_user])->one();
+        $pendaftaran = Pendaftaran::find()->where(['id'=>$model->pendaftaran_id])->one();
+        $mapel = MataPelajaran::find()->where(['id'=>$pendaftaran->mapel_id])->one();
+        $mapel_link = Html::a($mapel->nama, ['mata-pelajaran/view', 'id' => $mapel->id]) . "  ";
+        // $user_link = Html::a($user->username, ['user/view', 'id' => $user->id], ['class' => 'btn btn-primary']) . "  ";
+        $user_link = Html::a($user->username, ['user/view', 'id' => $user->id]) . "  ";
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'user' => $user_link,
+            'mapel' => $mapel_link
         ]);
     }
 
@@ -93,6 +111,24 @@ class SiswaController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionReject($id)
+    {
+        $model = $this->findModel($id);
+        $pendaftaran = Pendaftaran::find()->where(['id'=>$model->pendaftaran_id])->one();
+        $pendaftaran->status_id = Status::getStatusId("Rejected");
+        $pendaftaran->save();
+        return $this->redirect(['index']);
+    }
+
+    public function actionAccept($id)
+    {
+        $model = $this->findModel($id);
+        $pendaftaran = Pendaftaran::find()->where(['id'=>$model->pendaftaran_id])->one();
+        $pendaftaran->status_id = Status::getStatusId("Confirmed");
+        $pendaftaran->save();
+        return $this->redirect(['index']);
     }
 
     /**

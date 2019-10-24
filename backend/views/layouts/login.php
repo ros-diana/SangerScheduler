@@ -20,7 +20,11 @@ AdminLteAsset::register($this);
 </head>
 <body class="login-page">
 
+<?php $this->beginBody() ?>
 
+    <?= $content ?>
+
+<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

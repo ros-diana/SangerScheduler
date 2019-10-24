@@ -70,16 +70,19 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'login';
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['site/index']);
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if(!Yii::$app->user->identity->isAdmin && !Yii::$app->user->identity->isPengajar) {
+                Yii::$app->user->logout();
+                Yii::$app->session->setFlash('userStatus', "Anda Tidak Dapat Mengakses Halaman ini!");
+            }
             return $this->goBack();
         } else {
-            $model->password = '';
-
             return $this->render('login', [
                 'model' => $model,
             ]);
